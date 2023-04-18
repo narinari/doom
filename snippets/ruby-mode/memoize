@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: memoize
+# key: memoize
+# --
+return @$1 if defined?(@$1)$0

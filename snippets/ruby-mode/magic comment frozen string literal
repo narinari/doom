@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: magic comment frozen string literal
+# key: frozen-string-literal
+# --
+# frozen_string_literal: true

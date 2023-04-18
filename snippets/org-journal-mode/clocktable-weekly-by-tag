@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: clocktable-weekly-by-tag
+# key: clocktable-weekly-by-tag
+# --
+#+BEGIN: clocktable-by-tag :tags ("devop" "happy" "etc" "P00242")
+#+END:

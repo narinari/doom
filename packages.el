@@ -101,6 +101,9 @@
 
 (package! direnv)
 
+(package! copilot
+  :recipe (:host github :repo "zerolfx/copilot.el" :files ("*.el" "dist")))
+
 ;; * Writing
 (package! academic-phrases)
 (package! evil-string-inflection)

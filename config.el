@@ -1226,7 +1226,14 @@ The exact color values are taken from the active Ef theme."
   (setq gofmt-command "goimports")
   (add-hook! 'before-save-hook #'gofmt-before-save)
   (when (modulep! :tools lsp +eglot)
-    (add-to-list 'eglot-server-programs '(go-ts-mode "gopls"))))
+    (after! eglot
+      (add-to-list 'eglot-server-programs '(go-ts-mode "gopls")))))
+
+;; *** ruby
+(after! ruby-mode
+  (when (modulep! :tools lsp +eglot)
+    (after! eglot
+      (add-to-list 'eglot-server-programs '(ruby-mode "ruby-lsp")))))
 
 (after! dap-mode
   (setq dap-auto-configure-features '(sessions locals breakpoints expressions repl controls tooltip))

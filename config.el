@@ -1131,9 +1131,6 @@ The exact color values are taken from the active Ef theme."
          (lambda () (meain/tree-sitter-thing-name 'function-like))
          (lambda () (meain/tree-sitter-thing-name 'class-like)))))
 
-(use-package! direnv
-  :config (direnv-mode))
-
 ;; ** lang
 ;; *** prettier-js
 (after! prettier-js

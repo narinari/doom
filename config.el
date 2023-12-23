@@ -9,8 +9,8 @@
 (set-default 'buffer-file-coding-system 'utf-8)
 
 ;; (after! skk
-(map! :g [?\S- ] #'skk-mode
-      :g [?\M-`] #'skk-mode)
+;; (map! :g [?\S- ] #'skk-mode
+;;       :g [?\M-`] #'skk-mode)
 
 (setq org-directory "~/GoogleDrive/org"
       my/font    "SFMono Nerd Font"
@@ -918,71 +918,6 @@ The exact color values are taken from the active Ef theme."
   ("P" evil-mc-make-and-goto-first-cursor)
   ("x" evil-mc-undo-all-cursors :exit t)
   ("u" evil-mc-undo-last-added-cursor)
-  ("q" nil))
-
-(defun hydra-title(title) (propertize title 'face `(:inherit font-lock-warning-face :weight bold)))
-(defun command-name(title) (propertize title 'face `(:foreground "#f8f8f2")))
-(defun spacer() (propertize "." 'face `(:foreground "#282a36")))
-(defhydra hydra-frame-window (:color blue :hint nil)
-  (format
-   (format "%s" (propertize "                                                                       ╔════════╗
-    ((%s))^^^^^^^^   ((%s))^^^^  ((%s))^^  ((%s))^^  ((%s))^^^^^^  ((%s))^   ║ Window ║
-^^^^^^ ──────────────────────────────────────────────────────────────────────╨────────╜
-        ^_k_^        %s_+_         _-_       %s     _,_ ← %s → _._^  %s
-        ^^↑^^          ^↑^         ^↑^       %s
-    _h_ ←   → _l_   ^^%s%s^^^^^    ^%s    ^^^%s^^^^     %s
-        ^^↓^^          ^↓^         ^↓^       %s^^       %s
-        ^_j_^        %s_=_         _/_       %s
-^^^^^^ ┌──────────────────────────────────────────────────────────────────────────────┘
-                           [_q_]: %s, [_<SPC>_]: %s" 'face `(:inherit font-lock-doc-face)))
-   (hydra-title "Size")
-   (hydra-title "Zoom")
-   (hydra-title "Split")
-   (hydra-title "Window")
-   (hydra-title "Buffer")
-   (hydra-title "Misc")
-   (all-the-icons-material "zoom_in" :height .85 :face 'font-lock-doc-face)
-   (command-name "_o_ther")
-   (command-name "page")
-   (command-name "_r_centf")
-   (command-name "_s_wap")
-   (all-the-icons-faicon "slideshare" :height .85 :face 'font-lock-doc-face)
-   (command-name "_p_mode")
-   (command-name "w_i_ndow")
-   (command-name "_m_aximize")
-   (command-name "_s_witch")
-   (command-name "_d_elete")
-   (command-name "_D_elete")
-   (all-the-icons-material "zoom_out" :height .85 :face 'font-lock-doc-face)
-   (command-name "del_O_thers")
-   (command-name "quit")
-   (command-name "rotate")
-   )
-
-  ("K" kill-current-buffer :exit t)
-  ("D" kill-buffer-and-window :exit t)
-  ("O" delete-other-windows  :exit t)
-  ("F" toggle-frame-fullscreen)
-  ("i" ace-window)
-  ("s" ace-swap-window :exit t)
-  ("d" ace-delete-window)
-  ("m" ladicle/toggle-window-maximize :exit t)
-  ("=" text-scale-decrease)
-  ("+" text-scale-increase)
-  ("-" split-window-vertically)
-  ("/" split-window-horizontally)
-  ("h" shrink-window-horizontally)
-  ("k" shrink-window)
-  ("j" enlarge-window)
-  ("l" enlarge-window-horizontally)
-  ("," previous-buffer)
-  ("." next-buffer)
-  ("o" other-window)
-  ("p" presentation-mode)
-  ("r" counsel-recentf :exit t)
-  ("s" switch-to-buffer :exit t)
-  ("D" kill-buffer-and-window)
-  ("<SPC>" rotate-layout)
   ("q" nil))
 
 (defhydra hydra-avy (:color pink :hint nil)

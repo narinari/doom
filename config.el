@@ -147,8 +147,8 @@ List of keybindings (SPC h b b)")
                           (registers . 5)))
   :config
   (dashboard-setup-startup-hook)
-  (dashboard-modify-heading-icons '((recents . "file-text")
-                                    (bookmarks . "book"))))
+  (dashboard-modify-heading-icons '((recents . "nf-oct-file")
+                                    (bookmarks . "nf-oct-book"))))
 
 (setq doom-fallback-buffer "*dashboard*")
 

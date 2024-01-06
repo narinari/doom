@@ -85,11 +85,16 @@
 ;;   :recipe (:host github
 ;;            :repo "uwabami/isfit-plus"
 ;;            :files (:defaults "data")))
-(package! nerd-fonts :recipe (:host github :repo "twlz0ne/nerd-fonts.el" :files ("*.el")))
+;; (package! nerd-fonts :recipe (:host github :repo "twlz0ne/nerd-fonts.el" :files ("*.el")))
+(package! nerd-icons)
+(package! nerd-icons-completion)
+(package! nerd-icons-dired)
+(package! treemacs-nerd-icons)
+
 ;; (package! icons-in-terminal)
 ;; (package! icons-in-terminal-dired :recipe (:host github :repo "takaxp/icons-in-terminal-dired"))
-(package! all-the-icons)
-(package! all-the-icons-dired)
+;; (package! all-the-icons)
+;; (package! all-the-icons-dired)
 
 (package! spacious-padding)
 

@@ -198,10 +198,31 @@ List of keybindings (SPC h b b)")
   (kbd "; d") 'epa-dired-do-decrypt
   (kbd "; e") 'epa-dired-do-encrypt)
 
+;; nerd-icons
+(use-package! nerd-icons
+  :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  (nerd-icons-font-family "BerkeleyMono Nerd Font Mono")
+  )
+(use-package! nerd-icons-completion
+  :after marginalia
+  :config
+  (nerd-icons-completion-mode)
+  (add-hook 'marginalia-mode-hook #'nerd-icons-completion-marginalia-setup))
+(use-package! nerd-icons-dired
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
+(use-package! treemacs-nerd-icons
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
 ;; Get file icons in dired
-(after! all-the-icons
-  (when (window-system)
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
+;; (after! all-the-icons
+;;   (when (window-system)
+;;     (use-package! all-the-icons-dired)
+;;     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
 
 ;; With dired-open plugin, you can launch external programs for certain extensions
 ;; For example, I set all .png files to open in 'sxiv' and all .mp4 files to open in 'mpv'

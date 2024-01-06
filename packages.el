@@ -91,6 +91,8 @@
 (package! all-the-icons)
 (package! all-the-icons-dired)
 
+(package! spacious-padding)
+
 ;; * Terms
 (package! eat :recipe
   (:type git

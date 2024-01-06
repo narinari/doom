@@ -523,6 +523,10 @@ The exact color values are taken from the active Ef theme."
 
 (xterm-mouse-mode 1)
 
+(use-package! spacious-padding
+  :ensure t
+  :hook (after-init . spacious-padding-mode))
+
 (after! neotree
   (setq neo-smart-open t
         neo-window-fixed-size nil))

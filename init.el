@@ -25,9 +25,9 @@
        ;; +childframe)
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;(ivy               ; a search engine for love and life
-        ;; +prescient)
-        ;; +childframe)
+                                        ;(ivy               ; a search engine for love and life
+       ;; +prescient)
+       ;; +childframe)
        (vertico +icon)   ; the search engine of the future
 
        :ui
@@ -235,7 +235,8 @@
        (default +bindings +smartparens)
 
        :private
-       (sql +lsp))
+       (sql +lsp)
+       org)
 
 ;; * Config
 (setq max-lisp-eval-depth 5000
@@ -258,8 +259,8 @@
                                (setq-local rubocop-check-command "bin/rubocop --format emacs")))))
    ))
 
- (dir-locals-set-directory-class
-   "/home/narinari/dev/src/github.com/C-FO/" 'freee-develop-directory)
+(dir-locals-set-directory-class
+ "/home/narinari/dev/src/github.com/C-FO/" 'freee-develop-directory)
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -296,25 +297,25 @@
    (quote
     ((psc-ide-use-npm-bin . t)
      (eval progn
-           (setq-local flycheck-command-wrapper-function
-                       (lambda
-                         (command)
-                         (let
-                             ((wrapped
-                               (append
-                                (quote
-                                 ("bundle" "exec" "rubocop"))
-                                (cdr command))))
-                           wrapped)))
-           (setq-local rubocop-check-command "bin/rubocop --format emacs"))
+      (setq-local flycheck-command-wrapper-function
+                  (lambda
+                    (command)
+                    (let
+                        ((wrapped
+                          (append
+                           (quote
+                            ("bundle" "exec" "rubocop"))
+                           (cdr command))))
+                      wrapped)))
+      (setq-local rubocop-check-command "bin/rubocop --format emacs"))
      (eval setq-local flycheck-command-wrapper-function
-           (lambda
-             (command)
-             (let
-                 ((wrapped
-                   (append
-                    (quote
-                     ("bundle" "exec" "rubocop"))
-                    (cdr command))))
-               wrapped))
-           rubocop-check-command "bin/rubocop --format emacs")))))
+      (lambda
+        (command)
+        (let
+            ((wrapped
+              (append
+               (quote
+                ("bundle" "exec" "rubocop"))
+               (cdr command))))
+          wrapped))
+      rubocop-check-command "bin/rubocop --format emacs")))))

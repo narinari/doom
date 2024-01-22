@@ -9,14 +9,27 @@
 (set-default 'buffer-file-coding-system 'utf-8)
 
 ;; (after! skk
-;; (map! :g [?\S- ] #'skk-mode
-;;       :g [?\M-`] #'skk-mode)
+(map! :g [?\S- ] #'skk-mode
+      :g [?\M-`] #'skk-mode)
 
 (setq org-directory "~/GoogleDrive/org"
-      my/font    "SFMono Nerd Font"
+      ;; my/font    "SFMono Nerd Font"
+      my/font    "BerkeleyMono Nerd Font"
       my/font-ja "Noto Sans CJK JP")
 
+;; ずれ確認用 半角40字、全角20字
+;; AIfUEaiueoAIUEOaiueoAIUEOaiueoAIUEOaiueo ASCII英字
+;; 0123456789012345678901234567890123456789 ASCII数字
+;; ｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵｱｲｳｴｵ JIS X 0201ｶﾅ
+;; あいうえおあいうえおあいうえおあいうえお JIS X 0208ひらがな
+;; アイウエオアイウエオアイウエオアイウエオ 同カタカナ
+;; ＡＢＣＤＥＡＢＣＤＥＡＢＣＤＥＡＢＣＤＥ 同英字
+;; 亜唖娃阿哀亜唖娃阿哀亜唖娃阿哀亜唖娃阿哀 同漢字
+;; 𠀋𡈽𡌛𡑮𡢽𠀋𡈽𡌛𡑮𡢽𠀋𡈽𡌛𡑮𡢽𠀋𡈽𡌛𡑮𡢽 JIS X 0213漢字
+;; 🀄🀅🀆🀇🀈🀄🀅🀆🀇🀈🀄🀅🀆🀇🀈🀄🀅🀆🀇🀈 絵文字
+
 (when (window-system)
+  (set-fontset-font t 'katakana-jisx0201 my/font-ja)
   (set-fontset-font t 'japanese-jisx0208 my/font-ja)
   (set-fontset-font t 'japanese-jisx0213.2004-1 my/font-ja)
   (set-fontset-font nil 'japanese-jisx0208 my/font-ja)
@@ -204,7 +217,8 @@ List of keybindings (SPC h b b)")
   ;; The Nerd Font you want to use in GUI
   ;; "Symbols Nerd Font Mono" is the default and is recommended
   ;; but you can use any other Nerd Font if you want
-  (nerd-icons-font-family "BerkeleyMono Nerd Font Mono")
+  ;; (nerd-icons-font-family "SFMono Nerd Font")
+  (nerd-icons-font-family "BerkeleyMono Nerd Font")
   )
 (use-package! nerd-icons-completion
   :after marginalia
@@ -265,16 +279,16 @@ List of keybindings (SPC h b b)")
 (use-package! ef-themes
   :init
   (setq ef-themes-headings
-        '((0 . (1.5))
-          (1 . (1.3))
-          (2 . (1.2))
-          (3 . (1.1))
+        '((0 . (1.2))
+          (1 . (1.1))
+          (2 . (1.0))
+          (3 . (1.0))
           (4 . (1.0))
           (5 . (1.0)) ; absence of weight means `bold'
           (6 . (1.0))
           (7 . (1.0))
-          (agenda-date . (semilight 1.5))
-          (agenda-structure . (variable-pitch light 1.9))
+          (agenda-date . (semilight 1.2))
+          (agenda-structure . (variable-pitch light 1.2))
           (t . (1.0)))
         ef-themes-mixed-fonts t
         ef-themes-variable-pitch-ui t
@@ -493,7 +507,10 @@ The exact color values are taken from the active Ef theme."
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
 
-(set-face-attribute 'mode-line nil :font (concat my/font "-13"))
+(set-face-attribute 'mode-line nil :family my/font)
+(set-face-attribute 'mode-line-active nil :family my/font :inherit 'mode-line)
+(set-face-attribute 'mode-line-inactive nil :family my/font)
+
 (after! doom-modeline
   ;;
   ;; evil-state
@@ -705,15 +722,6 @@ The exact color values are taken from the active Ef theme."
 ;;  (add-to-list org-capture-templates
 ;;               '("j" "Journal entry" entry (function org-journal-find-location)
 ;;                 "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")))
-
-
-(custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :height 1.4))))
- '(org-level-2 ((t (:inherit outline-2 :height 1.3))))
- '(org-level-3 ((t (:inherit outline-3 :height 1.2))))
- '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
- '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
- )
 
 (use-package ox-man)
 (use-package ox-gemini)
@@ -946,6 +954,7 @@ The exact color values are taken from the active Ef theme."
   ("x" evil-mc-undo-all-cursors :exit t)
   ("u" evil-mc-undo-last-added-cursor)
   ("q" nil))
+
 
 (defhydra hydra-avy (:color pink :hint nil)
   "
@@ -1351,7 +1360,6 @@ For OK-STATUSES, ERROR-REGEXP, ROOT-FILES, EXECUTABLE and ARGS, see `format-all-
 (map! :leader
       :desc "multi-cursor" "M" #'hydra-multiple-cursors/body
       :desc "avy"    "A" #'hydra-avy/body
-      :desc "window" "W" #'hydra-frame-window/body
       :desc "Work log New Entry" "l" (lambda() (interactive) (org-capture nil "l"))
       :desc "New entry" "n j j" #'org-journal-new-entry
       ;; #'+hydra/window-nav/body

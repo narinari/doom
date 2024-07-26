@@ -268,6 +268,11 @@ List of keybindings (SPC h b b)")
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
 
+(after! evil-terminal-cursor-changer
+  (defadvice evil-set-cursor-color (after etcc--evil-set-cursor (arg) activate)
+    (unless (display-graphic-p)
+      (etcc--evil-set-cursor-color arg))))
+
 ;; (after! modus-themes
 ;;   (setq modus-themes-italic-constructs t
 ;;         modus-themes-bold-constructs t
@@ -530,7 +535,7 @@ The exact color values are taken from the active Ef theme."
         ;; evil-visual-state-tag   (propertize "<V>" 'face '((:background "grey80" :foreground "black")))
         ;; evil-operator-state-tag (propertize "<O>" 'face '((:background "purple"))))
         )
-  (set-cursor-color "cyan")
+  ;; (set-cursor-color "cyan")
   (line-number-mode 0)
   (column-number-mode 0)
   (doom-modeline-def-modeline 'main

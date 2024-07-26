@@ -20,7 +20,7 @@
      ;;         (concat "gh pr create" (when up-repo-name (concat " -R " up-repo-name)))))))
      (format "split-window -v -l 15 \\; %s \\; %s"
              (tmux/send-keys-cmd (concat "cd " (doom-project-root)))
-             (tmux/send-keys-cmd (concat "gh pr create" (when up-repo-name (concat " -R " up-repo-name))))
+             (tmux/send-keys-cmd (concat "gh pr create --assignee='@me'" (when up-repo-name (concat " -R " up-repo-name))))
              ))))
 
 (defun gh:reporitory-name (remote-name)

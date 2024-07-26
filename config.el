@@ -888,109 +888,7 @@ The exact color values are taken from the active Ef theme."
   (setq browse-at-remote-prefer-symbolic nil)) ; nilにするとブランチ名ではなくハッシュ値を使う。ブランチ名にするとファイル移動などで追えなくなるため。
 
 (after! scad-mode
-  (add-hook! scad-mode-hook scad-preview-mode)
-  (defhydra hydra-scad-preview (:color pink :hint nil)
-    "
-                                                                       ╔═════════╗
-    Move^^^^^^^^^    Rotate^^^^^^^^       Zoom^^                                  ║ Preview ║
-  ─────────────────────────────────────────────────────────────────────╨─────────╜
-        ^_n_^           ^_N_^       _+_
-        ^^↑^^           ^^↑^^       ^↑^
-    _h_ ←   → _i_   _H_ ←   → _I_  Zoom^^^^^
-        ^^↓^^           ^^↓^^       ^↓^
-        ^_e_^           ^_E_^       _-_
-  ╭──────────────────────────────────────────────────────────────────────────────╯
-                           [_q_],[_<esc>_]: quit
-"
-    ("h" scad-preview-trnsx+)
-    ("i" scad-preview-trnsx-)
-    ("n" scad-preview-trnsz+)
-    ("e" scad-preview-trnsz-)
-    ("H" scad-preview-rotx+)
-    ("I" scad-preview-rotx-)
-    ("N" scad-preview-rotz+)
-    ("E" scad-preview-rotz-)
-    ("+" scad-preview-dist-)
-    ("-" scad-preview-dist+)
-    ("q" nil)
-    ("<esc>" nil)
-    )
-  (map! :after scad-mode
-        :localleader
-        :map scad-preview--image-mode-map
-        :desc "scad preview" "p" #'hydra-scad-preview/body
-        )
-  )
-;; (after! hydra-posframe
-;;   (hydra-posframe-parameters
-;;     '((left-fringe . 5)
-;;       (right-fringe . 5)))
-;;   (add-hook! after-init hydra-posframe-enable))
-
-(defhydra hydra-multiple-cursors (:color pink :hint nil)
-  "
-                                                                        ╔════════╗
-    Point^^^^^^^^           Misc^^                                                ║ Cursor ║
-  ──────────────────────────────────────────────────────────────────────╨────────╜
-     _k_    _K_     _D_    _p_    [_x_] undo all
-     ^↑^    ^↑^     ^↑^    ^↑^    [_m_] mark all
-    make^^ skip^^^ mark^^ navi^^  [_u_] undo last
-     ^↓^    ^↓^     ^↓^    ^↓^
-     _j_    _J_     _d_    _n_
-  ╭──────────────────────────────────────────────────────────────────────────────╯
-                           [_q_]: quit, [Click]: point
-"
-  ("d" evil-mc-make-and-goto-next-match)
-  ("D" evil-mc-make-and-goto-prev-match)
-  ("j" evil-mc-make-cursor-move-next-line)
-  ("J" evil-mc-skip-and-goto-next-match)
-  ("k" evil-mc-make-cursor-move-prev-line)
-  ("K" evil-mc-skip-and-goto-prev-match)
-  ("m" evil-mc-make-all-cursors :exit t)
-  ("n" evil-mc-make-and-goto-next-cursor)
-  ("N" evil-mc-make-and-goto-last-cursor)
-  ("p" evil-mc-make-and-goto-prev-cursor)
-  ("P" evil-mc-make-and-goto-first-cursor)
-  ("x" evil-mc-undo-all-cursors :exit t)
-  ("u" evil-mc-undo-last-added-cursor)
-  ("q" nil))
-
-
-(defhydra hydra-avy (:color pink :hint nil)
-  "
-                                                                        ╔════════╗
-        ^^Goto^^        Kill^^        Yank^^        Move^^        Misc            ║  Jump  ║
-  ──────────────────────────────────────────────────────────────────────╨────────╜
-    _c_ ← char^^        [_k_] region  [_y_] region  [_m_] region  [_n_] line number
-    _a_ ← char2 → _b_   [_K_] line    [_Y_] line    [_M_] line    [_v_] Goto viewer
-    _w_ ← word  → _W_   [_z_] zap^^^^                             [_o_] Goto clock
-    _l_ ← line  → _e_   ^^^^^                                     _,_ ← f!y → _._
-  ╭──────────────────────────────────────────────────────────────────────────────╯
-                      [_q_]: quit, [_i_]: imenu, [_<SPC>_]: resume
-"
-  ("c" avy-goto-char :exit t)
-  ("a" avy-goto-char-2 :exit t)
-  ("b" avy-goto-char-below :exit t)
-  ("w" avy-goto-word-1 :exit t)
-  ("W" avy-goto-word-1-below :exit t)
-  ("l" avy-goto-line :exit t)
-  ("e" avy-goto-end-of-line :exit t)
-  ("M" avy-move-line)
-  ("m" avy-move-region)
-  ("K" avy-kill-whole-line)
-  ("k" avy-kill-region)
-  ("Y" avy-copy-line :exit t)
-  ("y" avy-copy-region :exit t)
-  ("n" goto-line :exit t)
-  ("o" org-clock-jump-to-current-clock :exit t)
-  ("z" avy-zap-to-char-dwim :exit t)
-  ("v" hydra-viewer/body :exit t)
-  ("<SPC>" avy-resume :exit t)
-  ("o" org-clock-jump-to-current-clock :exit t)
-  ("i" counsel-imenu :exit t)
-  ("," flymake-goto-previous-error)
-  ("." flymake-goto-next-error)
-  ("q" nil))
+  (add-hook! scad-mode-hook scad-preview-mode))
 
 ;; ** ui
 ;; *** indent-guides
@@ -1358,14 +1256,10 @@ For OK-STATUSES, ERROR-REGEXP, ROOT-FILES, EXECUTABLE and ARGS, see `format-all-
 ;;; Keybinds
 
 (map! :leader
-      :desc "multi-cursor" "M" #'hydra-multiple-cursors/body
-      :desc "avy"    "A" #'hydra-avy/body
       :desc "Work log New Entry" "l" (lambda() (interactive) (org-capture nil "l"))
       :desc "New entry" "n j j" #'org-journal-new-entry
-      ;; #'+hydra/window-nav/body
       (:prefix-map ("D" . "debug")
-       :desc "Start DAP debug" "d" #'dap-debug
-       :desc "Hydra" "h" #'dap-hydra))
+       :desc "Start DAP debug" "d" #'dap-debug))
 (map! :map minibuffer-local-map
       "M-;"               #'embark-act
       "C-c M-;"           #'embark-export)

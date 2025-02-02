@@ -562,7 +562,7 @@ The exact color values are taken from the active Ef theme."
       major-mode
       process
       vcs
-      checker)))
+      check)))
 
 (xterm-mouse-mode 1)
 

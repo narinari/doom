@@ -234,25 +234,8 @@
 (setq max-lisp-eval-depth 5000
       max-specpdl-size 50000
       user-full-name "TAKASHI Tanabe"
-      user-mail-address "narinari@c-fo.com")
+      user-mail-address "narinari.t@gmail.com")
 
-(dir-locals-set-class-variables
- 'freee-develop-directory
- '((ruby-mode . ((eval . (setq-local
-                          flycheck-command-wrapper-function
-                          (lambda (command)
-                            (append '("bundle" "exec") command))))))
-   (enh-ruby-mode . ((eval . (progn
-                               (setq-local
-                                flycheck-command-wrapper-function
-                                (lambda (command)
-                                  (let ((wrapped (append '("bundle" "exec" "rubocop") (cdr command))))
-                                    wrapped)))
-                               (setq-local rubocop-check-command "bin/rubocop --format emacs")))))
-   ))
-
-(dir-locals-set-directory-class
- "/home/narinari/dev/src/github.com/C-FO/" 'freee-develop-directory)
 ;; (custom-set-variables
 ;;  ;; custom-set-variables was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
